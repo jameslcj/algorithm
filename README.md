@@ -12,8 +12,8 @@
 - 然后将结果从小到大重新排序, 获取下一步可走点
 - 然后递归循环计算路径
 - 当到达终点时, 开始绘制路径
-- 具体详情请看[源代码](https://github.com/jameslcj/algorithm/blob/master/findRoad/findRoad.html)
+- 具体详情请看[源代码](https://github.com/jameslcj/algorithm/blob/master/findRoad/findRoad.js)
 
-### [寻路算法源代码地址](https://github.com/jameslcj/algorithm/blob/master/findRoad/findRoad.html)
+### [寻路算法源代码地址](https://github.com/jameslcj/algorithm/blob/master/findRoad/)
 ---
 # 如果觉得不错, 记得点星哦, 谢谢啦. 大家的鼓励才是我继续努力的动力
