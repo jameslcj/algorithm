@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>八皇后问题 | eight queen</title>
+    <style media="screen">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            list-style: none;
+        }
+        #ul {
+            margin: 20px auto;
+            height: auto;
+            overflow: hidden;
+            border: 1px solid black;
+            border-top: none;
+            border-left: none;
+            background-size:cover;
+            background-image:url(img/bg.jpg);
+        }
+        #ul li {
+            float: left;
+            border: 1px solid black;
+            border-bottom: none;
+            border-right: none;
+            background-size:cover;
+        }
+        #div {
+            margin: 20px 45%;
+            width: 200px;
+        }
+        #input {
+            width: 20px;
+        }
+        #ul li.active{ animation:.5s infinite linear flash; -webkit-animation:.5s infinite linear flash;}
+        @keyframes flash{
+        	0%{ opacity:0.1;}
+        	50%{ opacity:1;}
+        	100%{ opacity:0.1;}
+        }
+        @-webkit-keyframes flash{
+        	0%{ opacity:0.1;}
+        	50%{ opacity:1;}
+        	100%{ opacity:0.1;}
+        }
+    </style>
+</head>
+<body>
+    <ul id="ul"></ul>
+    <div id="div">8皇后有<span id="span">0</span>种方法</div>
+</body>
+<script type="text/javascript" src="./index.js"></script>
+</html>
