@@ -15,6 +15,7 @@
 - 具体详情请看[源代码](https://github.com/jameslcj/algorithm/blob/master/findRoad/findRoad.js)
 
 ### [寻路算法源代码地址](https://github.com/jameslcj/algorithm/blob/master/findRoad/)
+---
 ## 八皇后问题
 ### demo演示
 ![image](https://raw.githubusercontent.com/jameslcj/algorithm/master/eightQueen/demo.gif)
@@ -24,5 +25,143 @@
 - 具体详情请看[源代码](https://github.com/jameslcj/algorithm/blob/master/eightQueen/index.js)
 
 ### [八皇后源代码地址](https://github.com/jameslcj/algorithm/blob/master/eightQueen/)
+
+## 技巧算法
+- 不使用第三个变量交换两个变量的值
+```JavaScript
+var a = 5;
+var b = 8;
+//第一种
+a = a + b;
+b = a - b;
+a = a - b;
+
+//第二种
+a = a | b;
+b = a | b;
+a = a | b;
+
+//当a和b都不是数字的时候
+a = [a, b]
+b = a[0]
+a = a[1]
+```
+- 不适用循环方法 输入 3 返回[1, 2, 3]数组
+```JavaScript
+function test(num) {
+	var arr = [];
+
+	arr.push(num);
+	if (-- num) {
+		arr = test(num).concat(arr);
+	}
+	return arr
+}
+//利用闭包 公用一个arr
+function test(num) {
+	var arr = [];
+
+	return (function() {
+		arr.unshift(num);
+		if (-- num) {
+			arguments.callee(num)
+		}
+		return arr;
+	})()
+}
+//利用正则
+function test(num) {
+	var arr = [];
+	var resArr = [];
+	arr.length = num + 1;
+	var str = arr.join('a');
+	str.replace(/a/g, function() {
+		resArr.unshift(num --);
+	})
+
+	return resArr;
+}
+```
+
+- 利用多种方式获取输入num 当大于100返回100 否则返回num
+
+```JavaScript
+function test(num) {
+	return num < 100 ? num : 100;
+}
+
+function test(num) {
+	switch(num < 100) {
+		case true:
+			return num
+		case false:
+			return 100;
+	}
+}
+
+function test(num) {
+
+	return Math.min(num, 100);
+}
+
+function test(num) {
+
+	var tmp = num > 100 && 100;
+	return tmp || num
+}
+
+function test(num) {
+
+	var tmp = num + '';
+	for (var i = 2; i < num.length && num > 0;) {
+		return 100
+	}
+	return num;
+}
+
+function test(num) {
+	var arr = [num, 100];
+	arr.sort(function(num1, num2) {
+		return num1 - num2;
+	})
+
+	return arr[0] 
+}
+
+function test(num) {
+	var json = {foo: 'bar'}
+	var tmp = num > 100 || json;
+	for (var i in tmp) {
+		return 100
+	}
+	return num
+}
+```
+
+- 斐波那契算法
+
+```JavaScript
+function test(num) {
+	if (num <= 1) {
+		return 1;
+	}
+
+	return test(num - 1) + test(num - 2)
+}
+
+function test(num) {
+	var num1 = 1;
+	var num2 = 1;
+	var num3 = 0;
+
+	for (var i = 0; i < num -2; i ++) {
+		num3 = num1 + num2;
+		num1 = num2;
+		num2 = num3;
+	}
+
+	return num3
+}
+```
 ---
 ## 如果觉得不错, 记得点星哦, 谢谢啦. 大家的鼓励才是我继续努力的最大动力
