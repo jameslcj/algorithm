@@ -16,6 +16,17 @@
 
 ### [寻路算法源代码地址](https://github.com/jameslcj/algorithm/blob/master/findRoad/)
 ---
+## 行列式变换算法
+### demo演示
+![image](https://raw.githubusercontent.com/jameslcj/algorithm/master/changeXY/demo.png)
+###算法原理
+- 每个元素的索引位置对行的长度取模
+- 根据模的结果, 重新建立数组, 就能实现变换
+- 具体详情请看[源代码](https://github.com/jameslcj/algorithm/blob/master/changeXY/index.js)
+
+### [爱消除游戏源代码地址](https://github.com/jameslcj/algorithm/blob/master/changeXY/)
+
+---
 ## 八皇后问题
 ### demo演示
 ![image](https://raw.githubusercontent.com/jameslcj/algorithm/master/eightQueen/demo.gif)
@@ -26,6 +37,17 @@
 
 ### [八皇后源代码地址](https://github.com/jameslcj/algorithm/blob/master/eightQueen/)
 
+---
+## 螺旋矩阵
+### demo演示
+![image](https://raw.githubusercontent.com/jameslcj/algorithm/master/volution/demo.gif)
+###算法原理
+- 算法原理比较简单, 看代码就明白了
+- 具体详情请看[源代码](https://github.com/jameslcj/algorithm/blob/master/volution/index.js)
+
+### [螺旋矩阵源代码地址](https://github.com/jameslcj/algorithm/blob/master/volution/)
+
+---
 ## 技巧算法
 - 不使用第三个变量交换两个变量的值
 ```JavaScript
