@@ -19,7 +19,7 @@
 ## 行列式变换算法
 ### demo演示
 ![image](https://raw.githubusercontent.com/jameslcj/algorithm/master/changeXY/demo.png)
-###算法原理
+### 算法原理
 - 每个元素的索引位置对行的长度取模
 - 根据模的结果, 重新建立数组, 就能实现变换
 - 具体详情请看[源代码](https://github.com/jameslcj/algorithm/blob/master/changeXY/index.js)

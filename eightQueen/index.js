@@ -62,8 +62,9 @@ obj = {
         var iQueen = arguments[0];
         //判断是否完成
         if (iQueen == queenNum) {
+            // allCollectArr.push(Array.prototype.slice.call(collectArr, 0));
             //深拷贝
-            allCollectArr.push(Array.prototype.slice.call(collectArr, 0));
+            allCollectArr.push(collectArr.concat());
             count ++;
             return ;
         }
