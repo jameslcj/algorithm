@@ -30,7 +30,7 @@
 ## 八皇后问题
 ### demo演示
 ![image](https://raw.githubusercontent.com/jameslcj/algorithm/master/eightQueen/demo.gif)
-###算法原理
+### 算法原理
 - 递归计算是否在同行同列同斜线是否有其他皇后存在
 - 每次递归后, 要应用回溯的方法, 将棋盘恢复, 方面计算其他方法
 - 具体详情请看[源代码](https://github.com/jameslcj/algorithm/blob/master/eightQueen/index.js)
