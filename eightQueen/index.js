@@ -62,9 +62,9 @@ obj = {
         var iQueen = arguments[0];
         //判断是否完成
         if (iQueen == queenNum) {
-            // allCollectArr.push(Array.prototype.slice.call(collectArr, 0));
-            //深拷贝
-            allCollectArr.push(collectArr.concat());
+            //push数组只是引用关系, 所以使用concat或者slice进行拷贝 但这两者都是浅拷贝, 在这里不受影响
+            // allCollectArr.push(collectArr.concat());
+            allCollectArr.push(Array.prototype.slice.call(collectArr, 0));
             count ++;
             return ;
         }
