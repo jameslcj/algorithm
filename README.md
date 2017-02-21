@@ -47,12 +47,39 @@
 
 ### [螺旋矩阵源代码地址](https://github.com/jameslcj/algorithm/blob/master/volution/)
 
+---
 ## 排列和组合算法
 ### 算法原理
 - 排列: A(m, n) = m! / (m - n)!
 - 组合: C(m, n) = m! / n! * (m - n)!
 - 具体详情请看[源代码](https://github.com/jameslcj/algorithm/blob/master/PandC/index.js)
 
+---
+## 斐波那契算法
+
+```JavaScript
+function test(num) {
+	if (num <= 1) {
+		return 1;
+	}
+
+	return test(num - 1) + test(num - 2)
+}
+
+function test(num) {
+	var num1 = 1;
+	var num2 = 1;
+	var num3 = 0;
+
+	for (var i = 0; i < num -2; i ++) {
+		num3 = num1 + num2;
+		num1 = num2;
+		num2 = num3;
+	}
+
+	return num3
+}
+```
 ---
 ## 技巧算法
 - 不使用第三个变量交换两个变量的值
@@ -165,32 +192,6 @@ function test(num) {
 	return num
 }
 ```
-
-- 斐波那契算法
-
-```JavaScript
-function test(num) {
-	if (num <= 1) {
-		return 1;
-	}
-
-	return test(num - 1) + test(num - 2)
-}
-
-function test(num) {
-	var num1 = 1;
-	var num2 = 1;
-	var num3 = 0;
-
-	for (var i = 0; i < num -2; i ++) {
-		num3 = num1 + num2;
-		num1 = num2;
-		num2 = num3;
-	}
-
-	return num3
-}
-```
 ---
 ## 如果觉得不错, 记得点星哦, 谢谢啦. 大家的鼓励才是我继续努力的最大动力
-## [转载请注明出处](https://github.com/jameslcj/algorithm)
+- [转载请注明出处](https://github.com/jameslcj/algorithm)
