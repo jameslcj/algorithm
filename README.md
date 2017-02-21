@@ -41,11 +41,17 @@
 ## 螺旋矩阵
 ### demo演示
 ![image](https://raw.githubusercontent.com/jameslcj/algorithm/master/volution/demo.gif)
-###算法原理
+### 算法原理
 - 算法原理比较简单, 看代码就明白了
 - 具体详情请看[源代码](https://github.com/jameslcj/algorithm/blob/master/volution/index.js)
 
 ### [螺旋矩阵源代码地址](https://github.com/jameslcj/algorithm/blob/master/volution/)
+
+## 排列和组合算法
+### 算法原理
+- 排列: A(m, n) = m! / (m - n)!
+- 组合: C(m, n) = m! / n! * (m - n)!
+- 具体详情请看[源代码](https://github.com/jameslcj/algorithm/blob/master/PandC/index.js)
 
 ---
 ## 技巧算法
