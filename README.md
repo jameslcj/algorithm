@@ -55,6 +55,14 @@
 - 具体详情请看[源代码](https://github.com/jameslcj/algorithm/blob/master/PandC/index.js)
 
 ---
+## Eratosthenes算法 (寻找一定范围内的所有素数)
+### 算法原理
+- 先筛选掉范围内能被2整数的数
+- 再筛选掉范围内能被3整数的数
+- 依次筛选下去, 直到此数的平方大于总数为止, 剩下的数就全是素数
+- 具体详情请看[源代码](https://github.com/jameslcj/algorithm/blob/master/Eratosthenes/index.js)
+
+---
 ## 斐波那契算法
 
 ```JavaScript
