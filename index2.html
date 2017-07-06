@@ -1,0 +1,307 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,target-densitydpi=device-dpi,user-scalable=no">
+<meta charset="utf-8" />
+<title>无标题文档</title>
+<script>
+document.getElementsByTagName("html")[0].style.fontSize=window.screen.width/10+"px";
+</script>
+<style>
+body{background:#f3f2f3;margin:0; font-size:0.5rem;}
+#picWrap{width:100%; overflow:hidden;}
+#picList{width:40rem;overflow:hidden;}
+#picList img{width:10rem;float:left;}
+#picBtns{height:0.3rem;padding:0.2rem 0;margin:0; text-align:center;}
+#picBtns span{width:0.3rem;height:0.3rem;margin:0 0.1rem; border:1px solid #000; display:inline-block; box-sizing:border-box; border-radius:0.15rem; vertical-align:top;}
+#picBtns .active{background:#f60;}
+</style>
+</head>
+<body>
+<section id="picWrap">
+    <div id="picList">
+        <img src="img/1.jpg" />
+        <img src="img/2.jpg" />
+        <img src="img/3.jpg" />
+        <img src="img/4.jpg" />
+    </div>
+</section>
+<p id="picBtns">
+	<span class="active"></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</p>
+<script>
+document.ontouchmove=function(e)
+{
+	e.preventDefault();
+};
+window.onload=function()
+{
+	var oPicList=document.getElementById("picList");
+	var aBtns=document.getElementById("picBtns").children;
+	oPicList.innerHTML+=oPicList.innerHTML;
+	oPicList.style.width=oPicList.clientWidth*2+"px";
+	var iScroll=0;
+	var iStartX=0;
+	var iStartPageX=0;
+	var iNow=0;
+	var oTimer=0;
+	function autoMove()
+	{
+		oTimer=setInterval(function(){
+			iNow++;
+			iScroll=-iNow*window.screen.width;
+			for(var i=0;i<aBtns.length;i++)
+			{
+				aBtns[i].className="";
+			}
+			aBtns[iNow%aBtns.length].className="active";
+			if(iNow>=aBtns.length)
+			{
+				tweenMove(oPicList,{translateX:iScroll},300,"easeOut",function(){
+					iNow%=aBtns.length;
+					iScroll=-iNow*window.screen.width;
+					css(oPicList,"translateX",iScroll);
+				});
+			}
+			else
+			{
+				tweenMove(oPicList,{translateX:iScroll},300,"easeOut");
+			}	
+		},2000);
+	}
+	autoMove();
+	oPicList.addEventListener("touchstart",fnStart,false);
+	function fnStart(ev)
+	{
+		clearInterval(oTimer);
+		clearInterval(oPicList.timer);
+		if(iNow<=0)
+		{
+			iNow+=aBtns.length;
+			iScroll=-iNow*window.screen.width;
+			css(oPicList,"translateX",iScroll);
+		}
+		iStartPageX=ev.changedTouches[0].pageX;
+		iStartX=iScroll;
+	};
+	oPicList.addEventListener("touchmove",fnMove,false);
+	function fnMove(ev)
+	{
+		var iDis=ev.changedTouches[0].pageX-iStartPageX;
+		iScroll=iStartX+iDis;
+		setStyle();
+	};
+	oPicList.addEventListener("touchend",fnEnd,false);
+	function fnEnd(ev)
+	{
+		var iDis=ev.changedTouches[0].pageX-iStartPageX;
+		var iNub=Math.round(iDis/window.screen.width);
+		iNow-=iNub;
+		if(iNow<0)
+		{
+			iNow=0;
+		}
+		iScroll=-iNow*window.screen.width;
+		for(var i=0;i<aBtns.length;i++)
+		{
+			aBtns[i].className="";
+		}
+		aBtns[iNow%aBtns.length].className="active";
+		if(iNow>=aBtns.length)
+		{
+			tweenMove(oPicList,{translateX:iScroll},300,"backOut",function(){
+				iNow%=aBtns.length;
+				iScroll=-iNow*window.screen.width;
+				css(oPicList,"translateX",iScroll);
+			});
+		}
+		else
+		{
+			tweenMove(oPicList,{translateX:iScroll},300,"easeOut");
+		}
+		autoMove();
+	};
+	function setStyle()
+	{
+		css(oPicList,"translateX",iScroll);
+	}
+};
+var tween = {
+	easeOut: function(t, b, c, d){
+		return -c *(t/=d)*(t-2) + b;
+	},    
+	backOut: function(t, b, c, d, s){
+		if (typeof s == 'undefined') {
+			s = 3.70158;  //回缩的距离
+		}
+		return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
+	}
+};
+function tweenMove(obj,oTarget,iTime,iType,fnEnd,fnDuring)
+{
+	var fn=tween[iType];
+	var t=0;
+	var b={};
+	var c={};
+	var d=iTime/24;
+	var sAttr="";
+	clearInterval(obj.timer);
+	for(sAttr in oTarget)
+	{
+		b[sAttr]=css(obj,sAttr);
+		c[sAttr]=oTarget[sAttr]-b[sAttr];
+	}
+	if(iTime<30)
+	{
+		for(sAttr in oTarget)
+		{
+			css(obj,sAttr,oTarget[sAttr]);
+		}
+	}
+	else
+	{
+		obj.timer=setInterval(
+		function()
+		{
+			if(t<d)
+			{
+				t++;
+				for(sAttr in oTarget)
+				{
+					css(obj,sAttr,fn(t,b[sAttr],c[sAttr],d));
+				}
+			}
+			else
+			{
+				for(sAttr in oTarget)
+				{
+					css(obj,sAttr,oTarget[sAttr]);
+				}
+				clearInterval(obj.timer);
+				if(fnEnd)
+				{
+					fnEnd.call(obj);
+				}
+			}
+			if(fnDuring)
+			{
+				fnDuring.call(obj);
+			}
+		},24);
+	}
+}
+function css(obj, attr, value){
+	if(arguments.length==2){
+		if(attr=='scale'|| attr=='rotate'|| attr=='rotateX'||attr=='rotateY'||attr=='scaleX'||attr=='scaleY'||attr=='translateY'||attr=='translateX')
+		{
+			if(! obj.$Transform)
+			{
+				obj.$Transform={};
+			}
+			switch(attr)
+			{
+				case 'scale':
+				case 'scaleX':
+				case 'scaleY':
+				return typeof(obj.$Transform[attr])=='number'?obj.$Transform[attr]:100;
+				break;
+				default:
+					return obj.$Transform[attr]?obj.$Transform[attr]:0;
+			}
+		}
+		var sCur=obj.currentStyle?obj.currentStyle[attr]:document.defaultView.getComputedStyle(obj, false)[attr];
+		if(attr=='opacity'){
+			return Math.round((parseFloat(sCur)*100));
+		}
+		else{
+			return parseInt(sCur);
+		}
+	}
+	else if(arguments.length==3)
+	{
+		switch(attr){
+			case 'scale':
+			case 'scaleX':
+			case 'scaleY':
+			case 'rotate':
+			case 'rotateX':
+			case 'rotateY':
+			case 'translateZ':
+			case 'translateX':
+			case 'translateY':
+			setCss3(obj, attr, value);
+			break;
+			case 'width':
+			case 'height':
+			case 'paddingLeft':
+			case 'paddingTop':
+			case 'paddingRight':
+			case 'paddingBottom':
+				value=Math.max(value,0);
+			case 'left':
+			case 'top':
+			case 'marginLeft':
+			case 'marginTop':
+			case 'marginRight':
+			case 'marginBottom':
+				if(typeof value=="string")
+				{
+					obj.style[attr]=value;
+				}
+				else
+				{
+					obj.style[attr]=value+'px';
+				}
+				break;
+			case 'opacity':
+				obj.style.filter="alpha(opacity:"+value+")";
+				obj.style.opacity=value/100;
+				break;
+			default:
+				obj.style[attr]=value;
+		}
+	}
+	return function (attr_in, value_in){css(obj, attr_in, value_in)};
+}
+function setCss3(obj, attr, value)
+{
+	var sTr="";
+	var sVal="";
+	var arr=["Webkit","Moz","O","ms",""];
+	if(! obj["$Transform"])
+	{
+		obj["$Transform"]={};
+	}
+	obj["$Transform"][attr]=parseInt(value);
+	for( sTr in obj["$Transform"])
+	{
+		switch(sTr)
+		{
+			case 'scale':
+			case 'scaleX':
+			case 'scaleY':
+			sVal+=sTr+"("+(obj["$Transform"][sTr]/100)+") ";	
+			break;
+			case 'rotate':
+			case 'rotateX':
+			case 'rotateY':
+			sVal+=sTr+"("+(obj["$Transform"][sTr])+"deg) ";	
+			break;
+			case 'translateX':
+			case 'translateY':
+			case 'translateZ':
+			sVal+=sTr+"("+(obj["$Transform"][sTr])+"px) ";	
+			break;
+		}
+	}
+	for(var i=0;i<arr.length;i++)
+	{
+		obj.style[arr[i]+"Transform"]=sVal;
+	}	
+}	
+</script>
+</body>
+</html>
