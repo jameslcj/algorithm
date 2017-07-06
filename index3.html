@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,target-densitydpi=device-dpi,user-scalable=no">
+<meta charset="utf-8" />
+<title>无标题文档</title>
+<script>
+document.getElementsByTagName("html")[0].style.fontSize=window.screen.width/10+"px";
+</script>
+<script src="miaov.js"></script>
+<style>
+body{background:#f3f2f3;margin:0; font-size:0.5rem;}
+#picWrap{width:100%; overflow:hidden;}
+#picList{width:40rem;overflow:hidden;}
+#picList img{width:10rem;float:left;}
+#picBtns{height:0.3rem;padding:0.2rem 0;margin:0; text-align:center;}
+#picBtns span{width:0.3rem;height:0.3rem;margin:0 0.1rem; border:1px solid #000; display:inline-block; box-sizing:border-box; border-radius:0.15rem; vertical-align:top;}
+#picBtns .active{background:#f60;}
+</style>
+</head>
+<body>
+<section id="picWrap">
+    <div id="picList">
+        <img src="img/1.jpg" />
+        <img src="img/2.jpg" />
+        <img src="img/3.jpg" />
+        <img src="img/4.jpg" />
+    </div>
+</section>
+<p id="picBtns">
+	<span class="active"></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</p>
+<script>
+document.ontouchmove=function(e)
+{
+	e.preventDefault();
+};
+window.onload=function()
+{
+	var oPicList=document.getElementById("picList");
+	var aBtns=document.getElementById("picBtns").children;
+	var iScroll=0;
+	var iStartX=0;
+	var iStartPageX=0;
+	var iNow=0;
+	var oTimer=0;
+	oPicList.innerHTML+=oPicList.innerHTML;
+	oPicList.style.width=oPicList.clientWidth*2+"px";
+	function autoPlay()
+	{
+		oTimer=setInterval(function(){
+			iNow++;	
+			next();
+		},2000);
+	}
+	autoPlay();
+	oPicList.addEventListener("touchstart",fnStart,false);
+	function fnStart(ev)
+	{
+		clearInterval(oTimer);
+		clearInterval(oPicList.timer);
+		if(iNow<=0)
+		{
+			iNow+=aBtns.length;
+			iScroll=-iNow*window.screen.width;
+			css(oPicList, "translateX", iScroll);
+		}
+		iStartPageX=ev.changedTouches[0].pageX;
+		iStartX=iScroll;
+	};
+	oPicList.addEventListener("touchmove",fnMove,false);
+	function fnMove(ev)
+	{
+		var iDis=ev.changedTouches[0].pageX-iStartPageX;
+		iScroll=iStartX+iDis;
+		css(oPicList, "translateX", iScroll);
+	};
+	oPicList.addEventListener("touchend",fnEnd,false);
+	function fnEnd(ev)
+	{
+		var iDis=ev.changedTouches[0].pageX-iStartPageX;
+		var iNub=Math.round(iDis/window.screen.width);
+		iNow-=iNub;
+		next();
+		autoPlay();
+	};
+	function next()
+	{
+		iScroll=-iNow*window.screen.width;
+		for(var i=0;i<aBtns.length;i++)
+		{
+			aBtns[i].className="";
+		}
+		aBtns[iNow%aBtns.length].className="active";
+		if(iNow>=aBtns.length)
+		{
+			tweenMove(oPicList,{translateX:iScroll},300,"easeOut",function(){
+				iNow=iNow%aBtns.length;
+				iScroll=-iNow*window.screen.width;
+				css(oPicList, "translateX", iScroll);
+			});
+		}
+		else
+		{
+			tweenMove(oPicList,{translateX:iScroll},300,"easeOut");
+		}
+	}
+};
+</script>
+</body>
+</html>
